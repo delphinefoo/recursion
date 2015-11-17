@@ -4,7 +4,35 @@
 // };
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className
-){
-  // your code here
+var getElementsByClassName = function(className, node) {
+  var nodes = [];
+
+  node = node || document.body;
+
+
+  //get classname from node
+    //compare node classname to className. if match, push to nodes container.
+  // if (node.className === className) {
+  //   nodes.push(node);
+  // }
+
+    var parts = node.className.split(' ');
+    if (parts.indexOf(className) >= 0){
+      nodes.push(node);
+    }
+
+
+
+
+  //loop through all nodes
+  for (var i = 0; i < node.children.length; i++) {
+
+    //run getElementsByClassName on the children
+    var childElements = getElementsByClassName(className, node.children[i]);
+    nodes = nodes.concat(childElements);
+    console.log(nodes);
+  }
+
+  return nodes;
 };
+
